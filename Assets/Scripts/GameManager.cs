@@ -1,28 +1,31 @@
 ﻿using System;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+namespace TestTask
 {
-    public static GameManager Instance { get; private set; }
-    public event Action OnLevelUp;
-    public int CurrentLevel { get; private set; } = 0;
-
-    private void Awake()
+    public class GameManager : MonoBehaviour
     {
-        if (Instance != this && Instance != null)
-            Destroy(gameObject);
-        else
-            Instance = this;
-    }
+        public static GameManager Instance { get; private set; }
+        public event Action OnLevelUp;
+        public int CurrentLevel { get; private set; } = 0;
 
-    public void LevelUp()
-    {
-        //todo debug
-        print($"Current level is {CurrentLevel}");
-        
-        CurrentLevel++;
-        
-        if (OnLevelUp != null) 
-            OnLevelUp.Invoke();
+        private void Awake()
+        {
+            if (Instance != this && Instance != null)
+                Destroy(gameObject);
+            else
+                Instance = this;
+        }
+
+        public void LevelUp()
+        {
+            //todo debug
+            print($"Current level is {CurrentLevel}");
+
+            CurrentLevel++;
+
+            if (OnLevelUp != null)
+                OnLevelUp.Invoke();
+        }
     }
 }
