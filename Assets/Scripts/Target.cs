@@ -1,9 +1,7 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-    public void Eliminate()
-    {
-    }
+    private void Start() => TargetManager.Instance.AddTarget(this);
+    public void Eliminate() => TargetManager.Instance.TurnOffTarget(this);
 }

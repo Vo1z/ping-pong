@@ -6,7 +6,7 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     [Tooltip("Time to return to initial position")]
-    [SerializeField] [Min(0)] private float returnTime;
+    [SerializeField] [Min(0)] private float returnTime = .3f;
     
     public bool IsInTransition { get; private set; }
 
@@ -30,7 +30,7 @@ public class Ball : MonoBehaviour
         _rigidbody.velocity = direction.normalized * force;
     }
     
-    private IEnumerator BringBallToInitialPosition()
+    private IEnumerator ReturnToInitialPosition()
     {
         IsInTransition = false;
         
@@ -52,6 +52,9 @@ public class Ball : MonoBehaviour
     {
         if (other.transform.CompareTag("Wall"))
         {
+            //todo debug
+            print("Wall was hit");
+            
             var centralNormal = Vector3.zero;
             foreach (var contactPoint in other.contacts) 
                 centralNormal += contactPoint.normal;
@@ -67,9 +70,11 @@ public class Ball : MonoBehaviour
         }
 
         var enemy = other.transform.GetComponent<Enemy>();
-        if (other.transform.transform != null)
+        if (enemy != null)
         {
-            StartCoroutine(BringBallToInitialPosition());
+            //todo debug
+            print("Enemy was hit");
+            StartCoroutine(ReturnToInitialPosition());
             //todo add end turn event
             return;
         }
@@ -77,7 +82,11 @@ public class Ball : MonoBehaviour
         var target = other.transform.GetComponent<Target>();
         if (target != null)
         {
+            //todo debug
+            print("Target was hit");
             target.Eliminate();
+
+            StartCoroutine(ReturnToInitialPosition());
         }
     }
 }
