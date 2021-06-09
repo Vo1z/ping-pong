@@ -28,29 +28,54 @@ namespace TestTask
         {
             _lastVelocity = _rigidbody.velocity;
             
-            if (_rigidbody.velocity.magnitude < .001f)
+            var distanceToInitialPosition = Vector3.Magnitude(_initialPosition - transform.position);
+            if (_rigidbody.velocity.magnitude < .001f && distanceToInitialPosition > 0.1)
                 StartCoroutine(ReturnToInitialPosition());
         }
 
         public void LaunchBall(Vector3 direction, float force)
         {
+            //todo debug
+            print($"LaunchBall()0 : {IsInTransition}");
+            
+            IsReadyForLaunch = false;
+            IsInTransition = true;
+
             var impulseVelocity = direction.normalized * force;
             _rigidbody.AddForce(impulseVelocity, ForceMode.Impulse);
+            
+            //todo debug
+            print($"LaunchBall()1 : {IsInTransition}");
         }
 
         private IEnumerator ReturnToInitialPosition()
         {
-
+            //todo debug
+            print($"ReturnToInitialPosition()0 : {IsInTransition}");
+            
+            IsInTransition = false;
+            IsReadyForLaunch = false;
+            
             _rigidbody.velocity = Vector3.zero;
             _lastVelocity = Vector3.zero;
 
-            while ((_initialPosition - transform.position).magnitude > .001f)
+            while (Vector3.Magnitude(_initialPosition - transform.position) > .001f)
             {
                 transform.position = Vector3.SmoothDamp(transform.position, _initialPosition, ref _lastVelocity, returnTime);
                 yield return null;
             }
 
+            //todo debug
+            print($"ReturnToInitialPosition()1 : {IsInTransition}");
+
+            
             transform.position = _initialPosition;
+
+            IsReadyForLaunch = true;
+            
+            //todo debug
+            print($"ReturnToInitialPosition()2 : {IsInTransition}");
+
         }
 
         private void OnCollisionEnter(Collision other)
