@@ -7,8 +7,9 @@ namespace TestTask
     [RequireComponent(typeof(Collider))]
     public class Ball : MonoBehaviour
     {
-        [Tooltip("Time to return to initial position")] [SerializeField] [Min(0)]
-        private float returnTime = .3f;
+        [Tooltip("Time to return to initial position")]
+        [SerializeField] [Min(0)] private float returnTime = .3f;
+        [SerializeField] [Range(-1, 0)] private float frictionCoefficient = -.3f;
 
         public bool IsInTransition { get; private set; } = true;
         public bool IsReadyForLaunch { get; private set; } = true;
@@ -16,36 +17,45 @@ namespace TestTask
         private Vector3 _initialPosition;
         private Vector3 _lastVelocity;
         private Rigidbody _rigidbody;
+        private Collider _collider;
 
         private void Awake()
         {
             _initialPosition = transform.position;
             _rigidbody = GetComponent<Rigidbody>();
+            _collider = GetComponent<Collider>();
         }
 
         private void FixedUpdate()
         {
-            _lastVelocity = _rigidbody.velocity;
-            
+            var ballSpeed = _rigidbody.velocity.magnitude;
             var distanceToInitialPosition = Vector3.Magnitude(_initialPosition - transform.position);
-            if (_rigidbody.velocity.magnitude < .001f && distanceToInitialPosition > 0.1)
+            var frictionForce = _rigidbody.velocity.normalized * frictionCoefficient;
+            
+            if (ballSpeed <= Mathf.Abs(frictionCoefficient) && distanceToInitialPosition > 0.1)
                 StartCoroutine(ReturnToInitialPosition());
+            else
+               _rigidbody.velocity += frictionForce;
         }
 
         public void LaunchBall(Vector3 direction, float force)
         {
             IsReadyForLaunch = false;
             IsInTransition = true;
-
-            var impulseVelocity = direction.normalized * force;
-            _rigidbody.AddForce(impulseVelocity, ForceMode.Impulse);
+            
+            var pushingVelocity = direction.normalized * force;
+            _rigidbody.velocity = pushingVelocity;
+            _lastVelocity = pushingVelocity;
         }
 
         private IEnumerator ReturnToInitialPosition()
         {
+            //todo debug
+            print("Returning back");
             IsInTransition = false;
             IsReadyForLaunch = false;
-            
+
+            _collider.isTrigger = true;
             _rigidbody.velocity = Vector3.zero;
             _lastVelocity = Vector3.zero;
 
@@ -57,6 +67,7 @@ namespace TestTask
 
             transform.position = _initialPosition;
 
+            _collider.isTrigger = false;
             IsReadyForLaunch = true;
         }
 
@@ -64,7 +75,6 @@ namespace TestTask
         {
             if (other.transform.CompareTag("Wall"))
             {
-
                 var centralNormal = Vector3.zero;
                 foreach (var contactPoint in other.contacts)
                     centralNormal += contactPoint.normal;
@@ -72,6 +82,7 @@ namespace TestTask
                 centralNormal /= other.contactCount;
 
                 _lastVelocity = Vector3.Reflect(_lastVelocity, centralNormal).normalized * _lastVelocity.magnitude;
+                _rigidbody.velocity = _lastVelocity;
 
                 return;
             }

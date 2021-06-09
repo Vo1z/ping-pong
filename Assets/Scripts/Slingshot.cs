@@ -39,7 +39,7 @@ namespace TestTask
             }
 
             //Prevents aim going out of bounds
-            if (Vector3.Magnitude(_initialAimPosition - aim.transform.position) > maxDistance)
+            if (Vector3.Magnitude(_initialAimPosition - aimPos) > maxDistance)
             {
                 aim.transform.position = aimPos + (_initialAimPosition - aimPos).normalized * .001f; 
                 return;
