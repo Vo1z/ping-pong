@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace TestTask
@@ -35,24 +34,15 @@ namespace TestTask
 
         public void LaunchBall(Vector3 direction, float force)
         {
-            //todo debug
-            print($"LaunchBall()0 : {IsInTransition}");
-            
             IsReadyForLaunch = false;
             IsInTransition = true;
 
             var impulseVelocity = direction.normalized * force;
             _rigidbody.AddForce(impulseVelocity, ForceMode.Impulse);
-            
-            //todo debug
-            print($"LaunchBall()1 : {IsInTransition}");
         }
 
         private IEnumerator ReturnToInitialPosition()
         {
-            //todo debug
-            print($"ReturnToInitialPosition()0 : {IsInTransition}");
-            
             IsInTransition = false;
             IsReadyForLaunch = false;
             
@@ -65,17 +55,9 @@ namespace TestTask
                 yield return null;
             }
 
-            //todo debug
-            print($"ReturnToInitialPosition()1 : {IsInTransition}");
-
-            
             transform.position = _initialPosition;
 
             IsReadyForLaunch = true;
-            
-            //todo debug
-            print($"ReturnToInitialPosition()2 : {IsInTransition}");
-
         }
 
         private void OnCollisionEnter(Collision other)

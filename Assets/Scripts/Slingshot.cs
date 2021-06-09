@@ -5,15 +5,16 @@ namespace TestTask
     public class Slingshot : MonoBehaviour
     {
         [SerializeField] [Min(0)] private float maxDistance = 3f;
-        [SerializeField] [Range(0, .1f)] private float aimSpeedScale = .007f;
+        [SerializeField] [Range(0, .1f)] private float aimSensitivityScale = .007f;
         [SerializeField] [Range(0, 10f)] private float forceScale = 1f;
-        
         [Space]
         [SerializeField] private GameObject aim;
         [SerializeField] private Ball ball;
 
-        private float SlingshotForce => (_initialAimPosition - aim.transform.position).magnitude * forceScale;
-        private Vector3 AimDirection => (aim.transform.position - _initialAimPosition);
+        public GameObject Aim => aim;
+        public Ball Ball => ball;
+        public float SlingshotForce => Vector3.Magnitude(_initialAimPosition - aim.transform.position) * forceScale;
+        public Vector3 AimDirection => (aim.transform.position - _initialAimPosition);
 
         private Vector3 _initialAimPosition;
 
@@ -25,7 +26,7 @@ namespace TestTask
                 return;
 
             var touch = Input.GetTouch(0);
-            var deltaPos = touch.deltaPosition * aimSpeedScale;
+            var deltaPos = touch.deltaPosition * aimSensitivityScale;
             var aimPos = aim.transform.position;
             
             if (touch.phase != TouchPhase.Moved && touch.phase != TouchPhase.Stationary)
@@ -38,21 +39,21 @@ namespace TestTask
             }
 
             //Prevents aim going out of bounds
-            if ((_initialAimPosition - aim.transform.position).magnitude > maxDistance)
+            if (Vector3.Magnitude(_initialAimPosition - aim.transform.position) > maxDistance)
             {
                 aim.transform.position = aimPos + (_initialAimPosition - aimPos).normalized * .001f; 
                 return;
             }
 
             aim.transform.position = new Vector3(aimPos.x + deltaPos.x, _initialAimPosition.y, aimPos.z + deltaPos.y);
+            aim.transform.LookAt(_initialAimPosition);
+            aim.transform.Rotate(0, 180f, 0);
         }
         
         private void OnDrawGizmos()
         {
             if(aim == null)
                 return;
-            
-            var aimPos = aim.transform.position;
 
             Gizmos.DrawWireSphere(_initialAimPosition, maxDistance);
             Gizmos.color = Color.blue;

@@ -19,13 +19,12 @@ namespace TestTask
 
         public void LevelUp()
         {
-            //todo debug
-            print($"Current level is {CurrentLevel}");
-
             CurrentLevel++;
 
             if (OnLevelUp != null)
                 OnLevelUp.Invoke();
+            //todo debug
+            print($"Current level is {CurrentLevel}");
         }
     }
 }
