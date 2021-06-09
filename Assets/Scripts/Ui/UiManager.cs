@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,11 +7,14 @@ namespace TestTask.UI
 {
     public class UiManager : MonoBehaviour
     {
+        [Header("Obligatory options")]
+        [SerializeField] private Animator transition;
+
+        [Header("Options for ingame UI")]
         [SerializeField] private GameObject hud;
         [SerializeField] private GameObject pauseMenu;
-        [Space]
         [SerializeField] private TextMeshProUGUI levelLabel;
-        
+
         private void Start()
         {
             if(GameManager.Instance != null)
@@ -24,8 +27,11 @@ namespace TestTask.UI
                 pauseMenu.SetActive(false);
         }
 
-        public void StartNewGame() => SceneManager.LoadScene(1);
-        
+        public void StartNewGame()
+        {
+            StartCoroutine(TransitToTheScene(1, 1f));
+        }
+
         public void InvokeGameMenu()
         {
             if(hud != null)
@@ -52,6 +58,13 @@ namespace TestTask.UI
         {
             if(levelLabel != null)
                 levelLabel.text = $"{GameManager.Instance.CurrentLevel}";
+        }
+
+        private IEnumerator TransitToTheScene(int sceneIndex, float pauseBetweenTransitionInSeconds)
+        {
+            transition.SetTrigger("InvokeEndFade");
+            yield return new WaitForSeconds(pauseBetweenTransitionInSeconds);
+            SceneManager.LoadScene(sceneIndex);
         }
     }
 }
