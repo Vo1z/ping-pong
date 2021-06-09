@@ -27,10 +27,20 @@ namespace TestTask.UI
                 pauseMenu.SetActive(false);
         }
 
-        public void StartNewGame()
+        private void UpdateLevelLabel()
         {
-            StartCoroutine(TransitToTheScene(1, 1f));
+            if(levelLabel != null)
+                levelLabel.text = $"{GameManager.Instance.CurrentLevel}";
         }
+
+        private IEnumerator TransitToTheScene(int sceneIndex, float pauseBetweenTransitionInSeconds)
+        {
+            transition.SetTrigger("InvokeEndFade");
+            yield return new WaitForSeconds(pauseBetweenTransitionInSeconds);
+            SceneManager.LoadScene(sceneIndex);
+        }
+        
+        public void StartNewGame() => StartCoroutine(TransitToTheScene(1, 1f));
 
         public void InvokeGameMenu()
         {
@@ -53,18 +63,5 @@ namespace TestTask.UI
         }
 
         public void ExitGame() => Application.Quit();
-
-        private void UpdateLevelLabel()
-        {
-            if(levelLabel != null)
-                levelLabel.text = $"{GameManager.Instance.CurrentLevel}";
-        }
-
-        private IEnumerator TransitToTheScene(int sceneIndex, float pauseBetweenTransitionInSeconds)
-        {
-            transition.SetTrigger("InvokeEndFade");
-            yield return new WaitForSeconds(pauseBetweenTransitionInSeconds);
-            SceneManager.LoadScene(sceneIndex);
-        }
     }
 }

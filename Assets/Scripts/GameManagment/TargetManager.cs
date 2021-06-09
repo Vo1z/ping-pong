@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace TestTask
@@ -6,19 +7,7 @@ namespace TestTask
     public class TargetManager : MonoBehaviour
     {
         public static TargetManager Instance { get; private set; }
-
-        public int ActiveTargets
-        {
-            get
-            {
-                var activeTargets = 0;
-                foreach (var target in _targets)
-                    if (target.isActiveAndEnabled)
-                        activeTargets++;
-
-                return activeTargets;
-            }
-        }
+        public int ActiveTargets => _targets.Count(target => target.isActiveAndEnabled);
 
         private List<Target> _targets = new List<Target>();
 
@@ -41,8 +30,6 @@ namespace TestTask
         public void TurnOffTarget(Target target)
         {
             target.gameObject.SetActive(false);
-            //todo debug
-            print($"Number of active targets {ActiveTargets}");
             if (ActiveTargets < 1)
                 GameManager.Instance.LevelUp();
         }

@@ -23,8 +23,6 @@ namespace TestTask
 
             if (OnLevelUp != null)
                 OnLevelUp.Invoke();
-            //todo debug
-            print($"Current level is {CurrentLevel}");
         }
     }
 }

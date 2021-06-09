@@ -7,9 +7,9 @@ namespace TestTask
     [RequireComponent(typeof(Collider))]
     public class Enemy : MonoBehaviour
     {
-        [SerializeField] [Min(0f)] private float initialSpeed;
-        [Tooltip("How much speed enemy gains with each new level")]
-        [SerializeField] [Min(0f)] private float deltaSpeed;
+        [SerializeField] [Min(0f)] private float initialSpeed = 1.3f;
+        [Tooltip("How much speed enemy gains with each new level")] 
+        [SerializeField] [Min(0f)] private float deltaSpeed = .2f;
         [Space]
         [SerializeField] private Ball ball;
 

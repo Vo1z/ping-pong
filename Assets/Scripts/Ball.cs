@@ -38,20 +38,8 @@ namespace TestTask
                _rigidbody.velocity += frictionForce;
         }
 
-        public void LaunchBall(Vector3 direction, float force)
-        {
-            IsReadyForLaunch = false;
-            IsInTransition = true;
-            
-            var pushingVelocity = direction.normalized * force;
-            _rigidbody.velocity = pushingVelocity;
-            _lastVelocity = pushingVelocity;
-        }
-
         private IEnumerator ReturnToInitialPosition()
         {
-            //todo debug
-            print("Returning back");
             IsInTransition = false;
             IsReadyForLaunch = false;
 
@@ -101,6 +89,16 @@ namespace TestTask
 
                 StartCoroutine(ReturnToInitialPosition());
             }
+        }
+        
+        public void LaunchBall(Vector3 direction, float force)
+        {
+            IsReadyForLaunch = false;
+            IsInTransition = true;
+            
+            var pushingVelocity = direction.normalized * force;
+            _rigidbody.velocity = pushingVelocity;
+            _lastVelocity = pushingVelocity;
         }
     }
 }
