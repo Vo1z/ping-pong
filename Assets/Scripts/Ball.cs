@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace TestTask
@@ -10,7 +11,8 @@ namespace TestTask
         [Tooltip("Time to return to initial position")] [SerializeField] [Min(0)]
         private float returnTime = .3f;
 
-        public bool IsInTransition { get; private set; }
+        public bool IsInTransition { get; private set; } = true;
+        public bool IsReadyForLaunch { get; private set; } = true;
 
         private Vector3 _initialPosition;
         private Vector3 _lastVelocity;
@@ -20,30 +22,31 @@ namespace TestTask
         {
             _initialPosition = transform.position;
             _rigidbody = GetComponent<Rigidbody>();
+        }
 
-            LaunchBall(transform.forward, 5f);
+        private void FixedUpdate()
+        {
+            _lastVelocity = _rigidbody.velocity;
+            
+            if (_rigidbody.velocity.magnitude < .001f)
+                StartCoroutine(ReturnToInitialPosition());
         }
 
         public void LaunchBall(Vector3 direction, float force)
         {
-            IsInTransition = true;
-
-            _lastVelocity = direction.normalized * force;
-            _rigidbody.velocity = direction.normalized * force;
+            var impulseVelocity = direction.normalized * force;
+            _rigidbody.AddForce(impulseVelocity, ForceMode.Impulse);
         }
 
         private IEnumerator ReturnToInitialPosition()
         {
-            IsInTransition = false;
 
             _rigidbody.velocity = Vector3.zero;
             _lastVelocity = Vector3.zero;
 
-            var velocity = Vector3.zero;
-
             while ((_initialPosition - transform.position).magnitude > .001f)
             {
-                transform.position = Vector3.SmoothDamp(transform.position, _initialPosition, ref velocity, returnTime);
+                transform.position = Vector3.SmoothDamp(transform.position, _initialPosition, ref _lastVelocity, returnTime);
                 yield return null;
             }
 
@@ -54,8 +57,6 @@ namespace TestTask
         {
             if (other.transform.CompareTag("Wall"))
             {
-                //todo debug
-                print("Wall was hit");
 
                 var centralNormal = Vector3.zero;
                 foreach (var contactPoint in other.contacts)
@@ -64,9 +65,6 @@ namespace TestTask
                 centralNormal /= other.contactCount;
 
                 _lastVelocity = Vector3.Reflect(_lastVelocity, centralNormal).normalized * _lastVelocity.magnitude;
-                print(_lastVelocity);
-
-                _rigidbody.velocity = _lastVelocity;
 
                 return;
             }
@@ -74,18 +72,13 @@ namespace TestTask
             var enemy = other.transform.GetComponent<Enemy>();
             if (enemy != null)
             {
-                //todo debug
-                print("Enemy was hit");
                 StartCoroutine(ReturnToInitialPosition());
-                //todo add end turn event
                 return;
             }
 
             var target = other.transform.GetComponent<Target>();
             if (target != null)
             {
-                //todo debug
-                print("Target was hit");
                 target.Eliminate();
 
                 StartCoroutine(ReturnToInitialPosition());
