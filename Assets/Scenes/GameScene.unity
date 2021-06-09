@@ -44,15 +44,15 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
     m_IndirectOutputScale: 1
     m_AlbedoBoost: 1
     m_EnvironmentLightingMode: 0
-    m_EnableBakedLightmaps: 1
-    m_EnableRealtimeLightmaps: 0
+    m_EnableBakedLightmaps: 0
+    m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
     serializedVersion: 12
     m_Resolution: 2
@@ -278,7 +278,7 @@ Camera:
   far clip plane: 1000
   field of view: 90
   orthographic: 1
-  orthographic size: 6.7
+  orthographic size: 7.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -779,6 +779,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 7613510806641586455, guid: 90a0ad983e7082c4193a68ae92a82812,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 7613510806884809954, guid: 90a0ad983e7082c4193a68ae92a82812,
         type: 3}
       propertyPath: m_IsTrigger
@@ -789,6 +794,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 7613510806884809956, guid: 90a0ad983e7082c4193a68ae92a82812,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 7613510807142984259, guid: 90a0ad983e7082c4193a68ae92a82812,
         type: 3}
       propertyPath: m_IsTrigger
@@ -798,6 +808,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613510807142984261, guid: 90a0ad983e7082c4193a68ae92a82812,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 7613510807154263360, guid: 90a0ad983e7082c4193a68ae92a82812,
         type: 3}
@@ -859,6 +874,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayGround
       objectReference: {fileID: 0}
+    - target: {fileID: 7613510807154263363, guid: 90a0ad983e7082c4193a68ae92a82812,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 7613510807356931105, guid: 90a0ad983e7082c4193a68ae92a82812,
         type: 3}
       propertyPath: m_IsTrigger
@@ -868,6 +888,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613510807356931107, guid: 90a0ad983e7082c4193a68ae92a82812,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 7613510807412550130, guid: 90a0ad983e7082c4193a68ae92a82812,
         type: 3}
@@ -879,10 +904,20 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 7613510807412550132, guid: 90a0ad983e7082c4193a68ae92a82812,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 7613510807477386640, guid: 90a0ad983e7082c4193a68ae92a82812,
         type: 3}
       propertyPath: m_TagString
       value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613510807477386640, guid: 90a0ad983e7082c4193a68ae92a82812,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 7613510807477386670, guid: 90a0ad983e7082c4193a68ae92a82812,
         type: 3}
@@ -899,6 +934,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 7613510807611695426, guid: 90a0ad983e7082c4193a68ae92a82812,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 7613510807833950582, guid: 90a0ad983e7082c4193a68ae92a82812,
         type: 3}
       propertyPath: m_IsTrigger
@@ -908,6 +948,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613510807833950584, guid: 90a0ad983e7082c4193a68ae92a82812,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 7613510807939069642, guid: 90a0ad983e7082c4193a68ae92a82812,
         type: 3}
@@ -919,6 +964,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 7613510807939069644, guid: 90a0ad983e7082c4193a68ae92a82812,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 7613510808045654280, guid: 90a0ad983e7082c4193a68ae92a82812,
         type: 3}
       propertyPath: m_IsTrigger
@@ -928,6 +978,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613510808045654282, guid: 90a0ad983e7082c4193a68ae92a82812,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 7613510808099669857, guid: 90a0ad983e7082c4193a68ae92a82812,
         type: 3}
@@ -939,6 +994,16 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 7613510808099669859, guid: 90a0ad983e7082c4193a68ae92a82812,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613510808192928829, guid: 90a0ad983e7082c4193a68ae92a82812,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 7613510808457118985, guid: 90a0ad983e7082c4193a68ae92a82812,
         type: 3}
       propertyPath: m_IsTrigger
@@ -948,6 +1013,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613510808457118987, guid: 90a0ad983e7082c4193a68ae92a82812,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 90a0ad983e7082c4193a68ae92a82812, type: 3}
