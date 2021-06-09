@@ -34,8 +34,8 @@ namespace TestTask.UI
             var aimPos = _slingshotAim.transform.position;
             var aimForwardDirection = _slingshotAim.transform.forward.normalized;
             
-            _imageTransform.transform.position = aimPos + aimForwardDirection * (_slingshot.SlingshotForce * arrowPositionScale);
-            _imageTransform.transform.localScale = Vector3.one + Vector3.right * (_slingshot.SlingshotForce * arrowSizeScale);
+            _imageTransform.transform.position = aimPos + aimForwardDirection * (_slingshot.PullingForce * arrowPositionScale);
+            _imageTransform.transform.localScale = Vector3.one + Vector3.right * (_slingshot.PullingForce * arrowSizeScale);
         }
     }
 }

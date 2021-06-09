@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxDistance: 2
   aimSensitivityScale: 0.007
-  forceScale: 10
+  pullingForceScale: 10
   aim: {fileID: 2053470076621943461}
   ball: {fileID: 2053470076383300420}
 --- !u!114 &1105975452

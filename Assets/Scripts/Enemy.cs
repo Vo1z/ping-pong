@@ -15,13 +15,11 @@ namespace TestTask
 
         private float _currentSpeed;
 
-        private void Awake()
+        private void Start()
         {
             GameManager.Instance.OnLevelUp += IncreaseSpeed;
             _currentSpeed = initialSpeed;
         }
-
-        private void Start() => GameManager.Instance.OnLevelUp += IncreaseSpeed;
 
         private void Update()
         {

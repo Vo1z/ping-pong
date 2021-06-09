@@ -6,14 +6,14 @@ namespace TestTask
     {
         [SerializeField] [Min(0)] private float maxDistance = 3f;
         [SerializeField] [Range(0, .1f)] private float aimSensitivityScale = .007f;
-        [SerializeField] [Range(0, 10f)] private float forceScale = 1f;
+        [SerializeField] [Range(0, 10f)] private float pullingForceScale = 10f;
         [Space]
         [SerializeField] private GameObject aim;
         [SerializeField] private Ball ball;
 
         public GameObject Aim => aim;
         public Ball Ball => ball;
-        public float SlingshotForce => Vector3.Magnitude(_initialAimPosition - aim.transform.position) * forceScale;
+        public float PullingForce => Vector3.Magnitude(_initialAimPosition - aim.transform.position) * pullingForceScale;
         public Vector3 AimDirection => (aim.transform.position - _initialAimPosition);
 
         private Vector3 _initialAimPosition;
@@ -31,14 +31,13 @@ namespace TestTask
             
             if (touch.phase != TouchPhase.Moved && touch.phase != TouchPhase.Stationary)
             {
-                if (SlingshotForce > .1f && ball.IsReadyForLaunch) 
-                    ball.LaunchBall(AimDirection, SlingshotForce);
+                if (PullingForce > .1f && ball.IsReadyForLaunch) 
+                    ball.LaunchBall(AimDirection, PullingForce);
 
                 aim.transform.position = _initialAimPosition;
                 return;
             }
-
-            //Prevents aim going out of bounds
+            
             if (Vector3.Magnitude(_initialAimPosition - aimPos) > maxDistance)
             {
                 aim.transform.position = aimPos + (_initialAimPosition - aimPos).normalized * .001f; 
