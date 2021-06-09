@@ -1085,11 +1085,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2053470077061353848, guid: 88faf4082c64f97439eb3459a4f8dc9b,
-        type: 3}
-      propertyPath: pullingForceScale
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 2053470077061353849, guid: 88faf4082c64f97439eb3459a4f8dc9b,
         type: 3}
       propertyPath: m_RootOrder
